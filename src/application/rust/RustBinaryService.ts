@@ -11,6 +11,7 @@ import { createEvidence, type Evidence } from "../../domain/evidence.js";
 import {
   rustArchitectureForSubject,
   rustBinarySchema,
+  rustFormatForSubject,
 } from "../../domain/rust/rustBinary.js";
 import { inspectRustBinaryRequestSchema } from "../../domain/rust/rustBinaryQuery.js";
 import { analysisInputErrorFromIssues } from "../../domain/inputIssueProjection.js";
@@ -103,7 +104,7 @@ const evidenceFor = (
     {
       path: value.artifact.path,
       sha256: value.artifact.sha256,
-      format: value.format === "macho" ? "mach-o" : value.format,
+      format: rustFormatForSubject(value.format),
       ...(architecture === undefined ? {} : { architecture }),
     },
     provider,
